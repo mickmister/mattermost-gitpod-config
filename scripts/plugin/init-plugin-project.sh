@@ -1,4 +1,5 @@
 _contextURL=$GITPOD_WORKSPACE_CONTEXT_URL
+_contextURL="https://github.com/mattermost/mattermost-plugin-todo"
 
 _repo=$(echo $_contextURL | cut -d'/' -f 5)
 
@@ -19,4 +20,5 @@ cd $_repo
 
 node /workspace/mattermost-gitpod-config/scripts/common/add-workspace-folder.js $_repo
 
+nvm install v13.14.0
 MM_SERVICESETTINGS_ENABLEDEVELOPER=true make dist
