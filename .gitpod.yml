@@ -31,6 +31,10 @@ tasks:
       mkdir -p /workspace/persist/.cache/go-build
       echo "export GOCACHE=/workspace/persist/.cache/go-build" >> ~/.bashrc
 
+      make run-server
+      gp await-port 8065
+      make stop-server
+
       make test-data
     command: |
       export MM_SERVICESETTINGS_SITEURL=$(gp url 8065)
