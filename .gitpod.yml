@@ -27,6 +27,9 @@ tasks:
     before: |
       cd ../mattermost-server
       export MM_SERVICESETTINGS_SITEURL=$(gp url 8065)
+      mkdir -p /home/gitpod/.pyenv
+      touch /home/gitpod/.pyenv/version
+
     init: |
       mkdir -p /workspace/persist/.cache/go-build
       echo "export GOCACHE=/workspace/persist/.cache/go-build" >> ~/.bashrc
