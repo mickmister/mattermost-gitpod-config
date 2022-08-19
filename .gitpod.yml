@@ -29,10 +29,14 @@ tasks:
       echo "Waiting for server to start"
       gp await-port 8065
       echo "Server is running at $(gp url 8065)"
+    env:
+      GOCACHE: /workspace/persist/.cache/go-build
 
   - name: Webapp Dev
     before: |
       cd ../mattermost-webapp
+    env:
+      GOCACHE: /workspace/persist/.cache/go-build
 
   - name: Server
     before: |
@@ -40,7 +44,6 @@ tasks:
       export MM_SERVICESETTINGS_SITEURL=$(gp url 8065)
     init: |
       mkdir -p /workspace/persist/.cache/go-build
-      export GOCACHE=/workspace/persist/.cache/go-build
       echo "export GOCACHE=/workspace/persist/.cache/go-build" >> ~/.bashrc
 
       make run-server
@@ -64,6 +67,7 @@ tasks:
       MM_FEATUREFLAGS_AppBarEnabled: true
       MM_LOGSETTINGS_CONSOLELEVEL: DEBUG
       MM_LOGSETTINGS_FILELEVEL: DEBUG
+      GOCACHE: /workspace/persist/.cache/go-build
 
   - name: Webapp
     before: |
@@ -83,7 +87,11 @@ tasks:
     command: |
       make run
 
+    env:
+      GOCACHE: /workspace/persist/.cache/go-build
+
     openMode: split-right
+
 
   - name: Plugin
     init: |
@@ -94,9 +102,12 @@ tasks:
       source /workspace/mattermost-gitpod-config/scripts/plugin/run-plugin-project.sh
     env:
       MM_SERVICESETTINGS_ENABLEDEVELOPER: true
+      GOCACHE: /workspace/persist/.cache/go-build
 
   - name: App
     init: |
       source /workspace/mattermost-gitpod-config/scripts/app/init-app-project.sh
     command: |
       source /workspace/mattermost-gitpod-config/scripts/app/run-app-project.sh
+    env:
+      GOCACHE: /workspace/persist/.cache/go-build
