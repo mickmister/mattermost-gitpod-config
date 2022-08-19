@@ -22,21 +22,6 @@ workspaceLocation:
   mattermost-gitpod-config/mattermost.code-workspace
 
 tasks:
-  - name: Server Dev
-    before: |
-      cd ../mattermost-server
-    command: |
-      echo "Waiting for server to start"
-      gp await-port 8065
-      echo "Server is running at $(gp url 8065)"
-    env:
-      GOCACHE: /workspace/persist/.cache/go-build
-
-  - name: Webapp Dev
-    before: |
-      cd ../mattermost-webapp
-    env:
-      GOCACHE: /workspace/persist/.cache/go-build
 
   - name: Server
     before: |
@@ -87,6 +72,10 @@ tasks:
       GOCACHE: /workspace/persist/.cache/go-build
     openMode: split-right
 
+  - name: Cypress
+    init: |
+      cd ../mattermost-webapp/e2e/cypress
+      npm i
 
   - name: Plugin
     init: |
