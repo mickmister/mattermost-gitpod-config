@@ -7,6 +7,7 @@ _repoToCheckout=$_repo
 echo $_contextURL
 echo $_repo
 echo $_repoToCheckout
+echo $GITPOD_WORKSPACE_CONTEXT_URL
 
 _pluginRepoPrefix="mattermost-plugin"
 if [[ "$_repo" == "$_pluginRepoPrefix"* ]]; then
